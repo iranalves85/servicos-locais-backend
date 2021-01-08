@@ -1,0 +1,24 @@
+aside.sidebar{
+    & > ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        & > li{
+            border-left: 2px solid $primary;
+        }
+    } 
+
+    .widget{
+        font-size: 0.9rem;
+        a{
+            color: $primary;
+        }
+
+        ul{
+            padding-left: 20px;
+            li{
+                margin-bottom: 5px;
+            }
+        }
+    }
+}

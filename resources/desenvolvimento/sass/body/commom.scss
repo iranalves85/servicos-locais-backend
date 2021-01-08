@@ -1,0 +1,23 @@
+body{
+    color: $black;
+    overflow-x: hidden;
+    letter-spacing: 0.5px;
+    position: absolute;
+    width: 100%;
+    top:0;
+    left:0;
+    margin:0;
+    font-smooth: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+main{
+    
+}
+    

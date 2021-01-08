@@ -1,0 +1,24 @@
+footer{
+    
+    $default-color: #919191; 
+    $border-color: darken($default-color, 35%);
+
+    a, a:hover{
+        color: $primary3;
+    }
+
+    &.footer{
+        font-size: 0.8rem;
+        color: $default-color;
+
+        .about-us{
+            @media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
+                border-right: 1px solid $border-color; 
+            }
+        }
+
+        .footer-rights{
+            border-top: 1px solid $border-color;
+        }
+    }
+}

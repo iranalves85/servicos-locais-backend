@@ -1,0 +1,157 @@
+header{
+    position: relative;
+    z-index: 99;
+
+    a{
+        color: $white;
+        font-weight: 900; 
+    }
+
+    .info{
+        background-color: rgba($color: $white, $alpha: 0.05);
+        font-size: 0.7rem;
+    }
+
+    span.title{
+        &.site-title, .site-subtitle{
+            display: block; 
+        }
+
+        &.site-title{
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        &.site-subtitle{
+            
+        }
+    }
+    
+    
+    &.header{
+
+        .navbar-toggler{
+            float: right;
+            //background-image: url(assets/images/btn-menu-icon.png);
+            background-size: 50% auto;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .menu{
+            text-align: right;
+            .menu-superior{
+                padding: 0;
+                margin:0;
+                display: inline;
+                li{
+                    display: inline-block;
+                    margin-right: 1vw;
+                    text-transform: uppercase;
+                    a{
+                        padding-bottom: 10px;
+                        border-bottom: 2px solid transparent;
+                        &:hover{
+                            color: $white;
+                            border-bottom-color: $secondary; 
+                        }
+                    }
+                }
+            }
+
+            @media screen and (max-width: map-get($grid-breakpoints, 'lg')) {
+
+                .menu-container {
+                    background-image: linear-gradient(to top, $primary, $primary2);
+                    display: block;
+                    width: 300px;
+                    height: 100%;
+                    position: fixed;
+                    right: -100%;
+                    top: 0;
+                    z-index: 90;
+                    padding: 30px;
+                    box-shadow: 0px 25px 25px 1px rgba(0,0,0,0.5);
+                    transition: ease-out 0.3s;
+
+                    &::before{
+                        //content: url(assets/images/logo-makingpie-negativo.png);
+                        display: block;
+                    }
+
+                    &.open{
+                        right: -2px;
+                        transition: ease-in 0.3s;
+                    }
+
+                    li{
+                        
+                        a{
+                            color: $white;
+                        }
+
+                        &:last-child{
+                            a{
+                                border-color: $white !important;
+                            }
+                        }
+                    }
+
+                    #closeMenu{
+                        position: absolute;
+                        display: block;
+                        bottom: 10%;
+                        left: 50%; 
+                        transform: translateX(-50%) rotate(45deg);
+                        background-color: transparent;
+                        border: 0px;
+                        color: #fff;
+                        font-size: 56px;
+                        cursor: pointer;
+                    }
+                }
+
+                .navbar-brand{
+                    img {
+                        max-width: 100%;
+                        width: 100%;
+                    }
+                }
+
+                .menu-header{
+                    margin-top: 40px;
+                    li{
+                        display: block;
+                        width: 100%;
+                        margin-left: 0px;
+                        
+                        a{
+                            padding: 15px;
+                            display: block;
+                        }
+
+                        &::before{
+                            display:none !important;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    &.home{
+        position: absolute;
+        color: $white;
+        width: 100%;
+        z-index: 9;
+    }
+
+    &.default-pages{
+        @extend .gradiente-roxo;
+    }
+
+
+}
+    
+    
