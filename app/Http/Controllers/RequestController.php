@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
-    function get(Request $request, $paged = 0, $bairro = null) {
+    function get(Request $request, $paged = 0, $estado = null) {
 
         //Query inicial
         $query = DB::table('requests AS req')
@@ -25,9 +25,9 @@ class RequestController extends Controller
                     ->take(10);
 
         //Se houve envio de solicitação de filtrar solicitações
-        if (!is_null($bairro))
+        if (!is_null($estado))
         {
-            $query->where("u.neighborhood", "=", $bairro);
+            $query->where("u.state", "=", $estado);
         }
         
         //Realiza a query

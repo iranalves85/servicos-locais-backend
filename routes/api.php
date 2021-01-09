@@ -36,7 +36,7 @@ Route::group(['prefix' => 'authorized', 'middleware' => 'auth:sanctum'], functio
 
 /** Registrando url para requisições de solictações */
 Route::group(['prefix' => 'request', 'middleware' => 'auth:sanctum'], function () use ($router) {
-    $router->get('/{bairro?}/{page?}', 'RequestController@get');
+    $router->get('/{estado?}/{page?}', 'RequestController@get');
     $router->post('/', 'RequestController@add');
     $router->delete('/{requestID}', 'RequestController@delete');
     $router->post('help', 'RequestController@registerHelp');
