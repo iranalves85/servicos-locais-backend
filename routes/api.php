@@ -36,7 +36,8 @@ Route::group(['prefix' => 'authorized', 'middleware' => 'auth:sanctum'], functio
 
 /** Registrando url para requisições de solictações */
 Route::group(['prefix' => 'request', 'middleware' => 'auth:sanctum'], function () use ($router) {
-    $router->get('/{estado?}/{page?}', 'RequestController@get');
+    $router->get('/user/{paged?}', 'RequestController@getOwn'); //Deve estar antes, para priorizar "user" e não confundir com endpoint abaixo "estado"
+    $router->get('/{estado?}/{paged?}', 'RequestController@get');
     $router->post('/', 'RequestController@add');
     $router->delete('/{requestID}', 'RequestController@delete');
     $router->post('help', 'RequestController@registerHelp');

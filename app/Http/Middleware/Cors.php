@@ -31,7 +31,7 @@ class Cors
         $domain = preg_replace('/^\./', '', env('APP_DOMAIN'), 1);
 
         //Montando regex para aprovação de domínios
-        $regex = '/http(s)?:\/\/((app|api|admin|projetocovid).)?'. $domain .'(:8080)?/'; 
+        $regex = '/http(s)?:\/\/((app|api|admin|divulgue-servicos).)?'. $domain .'(:8080)?/'; 
 
         if (!empty($http_origin) && preg_match($regex, $http_origin, $match)) {
             $origin = $match[0];
