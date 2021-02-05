@@ -7,9 +7,11 @@ use App\Unity as UnityModel;
 use App\Resources as ResourcesModel;
 use App\Business as BusinessModel;
 use App\Support as SupportModel;
+use App\User as UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class RequestController extends Controller
 {
@@ -33,8 +35,16 @@ class RequestController extends Controller
         //Realiza a query
         $solicitacoes = $query->get();
 
+        //Para perfis visitantes, habilitado para indexação
+        $user_id = 0;
+
+        if (!is_null($token = $request->bearerToken())) {
+            $accessToken = PersonalAccessToken::findToken($token);
+            $user_id = $accessToken->getAttribute('tokenable_id');
+        }        
+
         //Retorna items estruturados para exibição
-        return response()->json($this->mount($solicitacoes));
+        return response()->json($this->mount($solicitacoes, $user_id));
     }
 
     function getOwn(Request $request, $paged = 0) {
@@ -52,8 +62,11 @@ class RequestController extends Controller
         //Realiza a query
         $solicitacoes = $query->get();
 
+        // Retorna id de usuário logado
+        $user_id = (Auth::check())? Auth::user()->id : 0;
+
         //Retorna items estruturados para exibição
-        return response()->json($this->mount($solicitacoes));
+        return response()->json($this->mount($solicitacoes, $user_id));
     }
 
     function add(Request $request) {
@@ -127,7 +140,7 @@ class RequestController extends Controller
         return $exist;
     }
 
-    private function mount(\Illuminate\Support\Collection $solicitacoes) {
+    private function mount(\Illuminate\Support\Collection $solicitacoes, int $user_id) {
         
         //Se existir dados a interar
         if ($solicitacoes->count() > 0) {
@@ -136,10 +149,7 @@ class RequestController extends Controller
             $resources = ResourcesModel::
             join("requests as req", "resources.request_id", "=", "req.ID")
             ->select("resources.ID")
-            ->get()->toArray();    
-            
-            //Atribui Id de usuário de contexto
-            $user_id = Auth::user()->id;
+            ->get()->toArray();
 
             foreach ($solicitacoes->all() as $key => $value) {
                 

@@ -35,12 +35,19 @@ Route::group(['prefix' => 'authorized', 'middleware' => 'auth:sanctum'], functio
 });
 
 /** Registrando url para requisições de solictações */
-Route::group(['prefix' => 'request', 'middleware' => 'auth:sanctum'], function () use ($router) {
-    $router->get('/user/{paged?}', 'RequestController@getOwn'); //Deve estar antes, para priorizar "user" e não confundir com endpoint abaixo "estado"
+Route::group(['prefix' => 'request'], function () use ($router) {
+
+    Route::middleware(['auth:sanctum'])->group(function() use ($router) {
+        //Deve estar antes, para priorizar "user" e não confundir com endpoint abaixo "estado"
+        $router->get('/user/{paged?}', 'RequestController@getOwn'); 
+        $router->post('/', 'RequestController@add');
+        $router->delete('/{requestID}', 'RequestController@delete');
+        $router->post('help', 'RequestController@registerHelp');
+    });
+
+    /** Listagem principal é livre para visualização */
     $router->get('/{estado?}/{paged?}', 'RequestController@get');
-    $router->post('/', 'RequestController@add');
-    $router->delete('/{requestID}', 'RequestController@delete');
-    $router->post('help', 'RequestController@registerHelp');
+    
 });
 
 /** Registrando url para requisições de recursos */
