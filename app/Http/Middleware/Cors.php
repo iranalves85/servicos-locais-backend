@@ -15,59 +15,20 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-
-        $http_origin = ''; //Inicializando variavel vazia
-        $match = [];
-
-        if(empty($http_origin) && isset($_SERVER['HTTP_ORIGIN']) && !empty($_SERVER['HTTP_ORIGIN'])) {
-            $http_origin = $_SERVER['HTTP_ORIGIN']; //Atribuindo servidor de requisição
-        } 
-
-        if(empty($http_origin) && isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
-            $http_origin = $_SERVER['HTTP_REFERER']; //Atribuindo servidor de requisição
-        }
         
-        //Remove ponto inicial no domínio (se existir)
-        $domain = preg_replace('/^\./', '', env('APP_DOMAIN'), 1);
-
-        //Montando regex para aprovação de domínios
-        $regex = '/http(s)?:\/\/((app|api|admin|divulgue-servicos).)?'. $domain .'(:8080)?/'; 
-
-        if (!empty($http_origin) && preg_match($regex, $http_origin, $match)) {
-            $origin = $match[0];
-        } else {
-            $origin = env('APP_FRONT');
-        }
-
         $headers = [
-            'Access-Control-Allow-Origin'      => $origin,
+            'Access-Control-Allow-Origin'      => '*',
             'Vary'                             => 'Origin',
             'Access-Control-Allow-Methods'     => 'HEAD, POST, GET, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Max-Age'           => '86400',
-            'Access-Control-Allow-Headers'     => 'origin, content-type, cookie, set-cookie, authorization, x-requested-with, access-control-allow-origin, accept, access-control-request-method, access-control-request-headers'
+            'Access-Control-Allow-Headers'     => 'Accept, Authorization, Content-Type'
         ];
 
-        if ($request->isMethod('OPTIONS'))
-        {
-            return response()->json('{"method":"OPTIONS"}', 200, $headers);
-        }
-        
-        $response = $next($request);   
-        
-        foreach($headers as $key => $value)
-        {      
-             //Verifica se resposta não é da classe BinaryFileResponse
-            if(!is_a($response, 'Symfony\Component\HttpFoundation\BinaryFileResponse')) {
-                 //Aplicando headers para respostas json
-                $response->header($key, $value);
-            } else {
-                 //Aplicando headers para respostas files
-                $response->headers->set($key, $value);
-            }
-            
+        if ($request->isMethod('OPTIONS')) {
+            return response('OK', 200, $headers);
         }
 
-        return $response;
+        return $next($request)->withHeaders($headers);
     }
 }
