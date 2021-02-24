@@ -22,7 +22,7 @@ class Cors
             'Access-Control-Allow-Methods'     => 'HEAD, POST, GET, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Max-Age'           => '86400',
-            'Access-Control-Allow-Headers'     => 'Accept, Authorization, Content-Type'
+            'Access-Control-Allow-Headers'     => '*'
         ];
 
         if ($request->isMethod('OPTIONS')) {
