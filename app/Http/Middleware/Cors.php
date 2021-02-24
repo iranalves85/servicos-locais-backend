@@ -17,7 +17,7 @@ class Cors
     {
         
         $headers = [
-            'Access-Control-Allow-Origin'      => 'https://divulgue-servicos.makingpie.com.br',
+            'Access-Control-Allow-Origin'      => '*',
             'Vary'                             => 'Origin',
             'Access-Control-Allow-Methods'     => 'HEAD, POST, GET, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
