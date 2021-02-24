@@ -17,7 +17,7 @@ class Cors
     {
         
         $headers = [
-            'Access-Control-Allow-Origin'      => '*',
+            'Access-Control-Allow-Origin'      => 'http://localhost',
             'Vary'                             => 'Origin',
             'Access-Control-Allow-Methods'     => 'HEAD, POST, GET, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
