@@ -19,15 +19,17 @@ class Cors
         $http_origin = ''; //Inicializando variavel vazia
         $match = [];
 
-        if (empty($http_origin) && isset($_SERVER['HTTP_ORIGIN']) && !empty($_SERVER['HTTP_ORIGIN'])) {
+        if (isset($_SERVER['HTTP_ORIGIN']) && !empty($_SERVER['HTTP_ORIGIN'])) {
             $http_origin = $_SERVER['HTTP_ORIGIN']; //Atribuindo servidor de requisição
+        } else {
+            return response()->json('Não autorizado.', 401);
         }
         
         //Remove ponto inicial no domínio (se existir)
         $domain = preg_replace('/^\./', '', env('APP_DOMAIN'), 1);
 
         //Montando regex para aprovação de domínios
-        $regex = '/http(s)?:\/\/(divulgue-servicos.)?'. $domain .'(:8080)?/'; 
+        $regex = '/^http(s)?:\/\/(divulgue-servicos.)?'. $domain .'(:8080)?/'; 
 
         if (!empty($http_origin) && preg_match($regex, $http_origin, $match)) {
             $origin = $match[0];
