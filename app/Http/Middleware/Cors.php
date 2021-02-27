@@ -19,8 +19,8 @@ class Cors
         $http_origin = ''; //Inicializando variavel vazia
         $match = [];
 
-        if (isset($_SERVER['HTTP_ORIGIN']) && !empty($_SERVER['HTTP_ORIGIN'])) {
-            $http_origin = $_SERVER['HTTP_ORIGIN']; //Atribuindo servidor de requisição
+        if ($request->hasHeader('origin') && !empty($request->header('origin'))) {
+            $http_origin = $request->header('origin'); //Atribuindo servidor de requisição
         } else {
             return response()->json('Não autorizado.', 401);
         }
