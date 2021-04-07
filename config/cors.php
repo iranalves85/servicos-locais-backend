@@ -1,5 +1,7 @@
 <?php
 
+$domains = env('APP_DOMAIN');
+
 return [
 
     /*
@@ -19,9 +21,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://google.com'],
+    'allowed_origins' => ['https://divulgue-servicos.makingpie.com.br'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ["/^https?\:\/\/$domains$/"],
 
     'allowed_headers' => ['*'],
 
